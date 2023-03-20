@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/keithjia/inbox/issues"
   },
-  "homepage": "https://github.com/keithjia/inbox#readme"
+  "homepage": "https://github.com/keithjia/inbox#readme",
+  "dependencies": {
+    "solc": "^0.8.19"
+  }
 }
