@@ -28,7 +28,7 @@ try {
     //compile contract
     const output = JSON.parse(solc.compile(JSON.stringify(input)));
     
-    console.log( output.contracts["Inbox.sol"].Inbox);
+    //console.log( output.contracts["Inbox.sol"].Inbox);
 
     module.exports = output.contracts["Inbox.sol"].Inbox;
     //console.log(util.inspect(output, {showHidden: false, depth: null, colors: true}));
