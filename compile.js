@@ -3,18 +3,21 @@ const fs = require("fs");
 const solc = require("solc");
 const util = require('util')
 
-
 const inboxPath = path.resolve(__dirname, "contracts", "Inbox.sol");
-const source = fs.readFileSync(inboxPath, "utf8");
-
+const sourceInbox = fs.readFileSync(inboxPath, "utf8");
+ 
+const sourceLottery = fs.readFileSync(path.resolve(__dirname, "contracts", "Lottery.sol"), "utf8");
 
 try {
     const input = {
         language: 'Solidity',
         sources: {
           'Inbox.sol': {
-            content: source,
+            content: sourceInbox,
           },
+          'Lottery.sol': {
+            content: sourceLottery,
+          }
         },
         settings: {
           outputSelection: {
@@ -28,9 +31,10 @@ try {
     //compile contract
     const output = JSON.parse(solc.compile(JSON.stringify(input)));
     
-    //console.log( output.contracts["Inbox.sol"].Inbox);
+    //console.log( output.contracts);
 
-    module.exports = output.contracts["Inbox.sol"].Inbox;
+    //module.exports = output.contracts["Inbox.sol"].Inbox;
+    module.exports = output.contracts;
     //console.log(util.inspect(output, {showHidden: false, depth: null, colors: true}));
 
     // for (var contractName in output.contracts['Inbox.sol']) {

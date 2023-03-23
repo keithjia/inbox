@@ -3,7 +3,7 @@ const ganache = require("ganache");
 const Web3 = require("web3");
 const web3 = new Web3(ganache.provider(), null, { transactionConfirmationBlocks: 1 });
 
-const {abi, evm} = require("../compile");
+const {abi, evm} = require("../compile")["Inbox.sol"].Inbox;
 
 let accounts;
 let deployedInboxContract;

@@ -1,6 +1,7 @@
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 const Web3 = require("web3");
-const {abi, evm} = require("./compile");
+//const {abi, evm} = require("./compile");
+const contracts = require("./compile");
 const gorliNetwork = "https://goerli.infura.io/v3/ba39c821796547c3a391077c22151360";
 
 const truffleWalletProvider = new HDWalletProvider(
@@ -17,16 +18,33 @@ const web3 = new Web3(truffleWalletProvider);
 
     console.log(`contract being deployed from: ${testFromAccount}`);
 
+    await deployContract(["first real contract."], contracts["Inbox.sol"].Inbox, testFromAccount);
+    await deployContract(null, contracts["Lottery.sol"].Lottery, testFromAccount);  
+    
+    // deployedInboxContract = await new web3.eth.Contract(abi)
+    // .deploy({
+    //     data: evm.bytecode.object, 
+    //     arguments:["first real contract."]})
+    // .send({
+    //     from: testFromAccount, 
+    //     gas:1000000});
+
+    //     console.log(`contract deployed to: ${deployedInboxContract.options.address}`);
+    
+    
+    truffleWalletProvider.engine.stop();
+})();
+
+async function deployContract(arguments, bytecodeObj, from) {
     // creates the contract, send() issues the trasaction and 
     // executes the deployment
     deployedInboxContract = await new web3.eth.Contract(abi)
-        .deploy({
-            data: evm.bytecode.object, 
-            arguments:["first real contract."]})
-        .send({
-            from: testFromAccount, 
-            gas:1000000});
-    console.log(`contract deployed to: ${deployedInboxContract.options.address}`);
+    .deploy({
+        data: bytecodeObj, 
+        arguments: arguments})
+    .send({
+        from: from, 
+        gas:1000000});
 
-    truffleWalletProvider.engine.stop();
-})();
+    console.log(`contract deployed to: ${deployedInboxContract.options.address}`);
+}
