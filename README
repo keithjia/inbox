@@ -1,0 +1,8 @@
+Run eth tests which compiles and deploys the contracts to Local Ganache test net
+"npm test"
+
+Deploy: connects metamask wallet and uses it to deploy to gorliNetwork via aninfura node
+"node deploy.js"
+
+UI react, interacts with the deployed Gorli network contract via webserver
+"ui/lottery-react/npm start"
